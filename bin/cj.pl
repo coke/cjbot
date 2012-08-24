@@ -41,13 +41,18 @@ sub get-tweets($opts) {
 # preload a slightly old tweet.
 # TODO: remember where we left off.
 {
-    my $age = 2;
+    my $age = 1;
     my $tweets = get-tweets("rpp=$age");
     my $tweet = $tweets<results>[*-1];
     say "Adding initial tweet created: " ~ $tweet<created_at>;
-    @tweets = $tweet;
+    # @tweets = $tweet;
     $max-twitter-id = $tweet<id>;
 }
+
+# MuEvent is eager, so add something to save the CPU.
+MuEvent::idle(
+    cb => sub { sleep 30; }
+);
 
 # dump a single pending tweet, if any
 MuEvent::timer(
