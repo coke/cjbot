@@ -62,7 +62,8 @@ MuEvent::timer(
         return unless @tweets;
 
         my $tweet = @tweets.shift;
-        my $msg = "@" ~ $tweet<from_user> ~ " tweeted '" ~ $tweet<text> ~ "'";;
+        my $msg = 'https://twitter.com/' ~ $tweet<from_user> ~ '/status/' ~
+            $tweet<id> ~ ' : ' ~ $tweet<text>;
         $bot.sendmsg($msg, $chan);
     }
 );
