@@ -8,6 +8,7 @@ my $ua = LWP::Simple.new();
 
 my $max-twitter-id;
 my $base-url        = "http://search.twitter.com/search.json?q=";
+my $human-url       = "https://twitter.com/#!/search/";
 my $search-criteria = "%23perl6%20OR%20%23p6p5%20OR%20%23p5p6%20OR%20%22perl%206%22";
 
 my $nick = "cjbot";
@@ -15,7 +16,8 @@ my $chan = "#perl6";
 
 class Help {
     multi method said($e where { $e.what ~~ /^ $nick ':' <.ws> [ '?' | 'help' | 'h'] /}) {
-        $e.msg: "Run by Coke, I relay tweets about Perl 6.";
+        $e.msg: "Run by Coke, I relay tweets about Perl 6 from " ~ $human-url ~
+           $search-criteria;
     }
 }
 
